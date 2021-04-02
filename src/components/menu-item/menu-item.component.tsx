@@ -8,12 +8,13 @@ interface MenuProps {
 
 const MenuItem = ({ title, imgUrl, size }: MenuProps) => {
   return (
-    <div
-      className={`${size} menu-item`}
-      style={{ backgroundImage: `url(${imgUrl})` }}
-    >
+    <div className={`menu-item ${size ? size : ""}`}>
+      <div
+        className="background-image"
+        style={{ backgroundImage: `url(${imgUrl})` }}
+      ></div>
       <div className="content">
-        <h1 className="title">{title}</h1>
+        <h1 className="title">{title.toUpperCase()}</h1>
         <span className="subtitle">Shop Now</span>
       </div>
     </div>
