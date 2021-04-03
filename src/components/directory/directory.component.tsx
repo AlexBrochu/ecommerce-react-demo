@@ -22,6 +22,7 @@ class Directory extends Component<DirectoryProps, { sections: Array<any> }> {
             title={section.title}
             imgUrl={section.imageUrl}
             size={section.size}
+            linkUrl={section.linkUrl}
           ></MenuItem>
         ))}
       </div>
