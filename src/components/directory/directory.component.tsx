@@ -1,7 +1,7 @@
 import { Component } from "react";
 
 import "./directory.styles.scss";
-import sections from "../../directory.data";
+import sections from "../../data/directory.data";
 import MenuItem from "../menu-item/menu-item.component";
 
 interface DirectoryProps {}
