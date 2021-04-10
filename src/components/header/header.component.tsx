@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useMemo } from "react";
 import { Link } from "react-router-dom";
 import { ReactComponent as Logo } from "../../assets/crown.svg";
 import { useSelector } from "react-redux";
@@ -11,8 +11,11 @@ import CartIcon from "../cart-icon/cart-icon.component";
 import CartDropdown from "../cart-dropdown/cart-dropdown.component";
 
 const Header = () => {
-  const { currentUser } = useSelector((state: State) => state.user);
-  const { hidden } = useSelector((state: State) => state.cart);
+  const user = useSelector((state: State) => state.user);
+  const cart = useSelector((state: State) => state.cart);
+
+  const currentUser = useMemo(() => user.currentUser, [user.currentUser]);
+  const hidden = useMemo(() => cart.hidden, [cart.hidden]);
 
   return (
     <div className="header">
