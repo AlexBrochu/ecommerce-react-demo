@@ -1,15 +1,18 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { ReactComponent as Logo } from "../../assets/crown.svg";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 
 import { auth } from "../../firebase/firebase.utils";
 
 import "./header.styles.scss";
 import { State } from "../../redux/store";
+import CartIcon from "../cart-icon/cart-icon.component";
+import CartDropdown from "../cart-dropdown/cart-dropdown.component";
 
 const Header = () => {
   const { currentUser } = useSelector((state: State) => state.user);
+  const { hidden } = useSelector((state: State) => state.cart);
 
   console.log(currentUser);
 
@@ -34,7 +37,9 @@ const Header = () => {
             SIGN IN
           </Link>
         )}
+        <CartIcon />
       </div>
+      {hidden ? null : <CartDropdown />}
     </div>
   );
 };

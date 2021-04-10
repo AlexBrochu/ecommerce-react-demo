@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import "./App.scss";
-import { Switch, Route } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { Switch, Route, Redirect } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 
 import HomePage from "./pages/homepage/homepage.component";
 import ShopPage from "./pages/shop/shoppage.component";
@@ -10,9 +10,11 @@ import SignInAndSignUpPage from "./pages/sign-in-and-sign-up/sign-in-and-sign-up
 
 import { auth, createUserProfileDocument } from "./firebase/firebase.utils";
 import { setCurrentUser } from "./redux/user/user.actions";
+import { State } from "./redux/store";
 
 const App = () => {
   const dispatch = useDispatch();
+  const { currentUser } = useSelector((state: State) => state.user);
 
   useEffect(() => {
     let unsubscribeFromAuth = auth.onAuthStateChanged(async (userAuth) => {
@@ -42,7 +44,7 @@ const App = () => {
     return function cleanup() {
       unsubscribeFromAuth();
     };
-  });
+  }, [dispatch]);
 
   return (
     <div>
@@ -51,7 +53,13 @@ const App = () => {
       <Switch>
         <Route exact path="/" component={HomePage} />
         <Route path="/shop" component={ShopPage} />
-        <Route path="/signIn" component={SignInAndSignUpPage} />
+        <Route
+          exact
+          path="/signIn"
+          render={() =>
+            currentUser ? <Redirect to="/" /> : <SignInAndSignUpPage />
+          }
+        />
       </Switch>
     </div>
   );
