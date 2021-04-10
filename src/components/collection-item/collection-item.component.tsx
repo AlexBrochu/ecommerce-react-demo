@@ -13,7 +13,7 @@ interface CollectionItemProps {
   imageUrl: string;
 }
 
-const CollectionItem = (item: any) => {
+const CollectionItem = ({ item }: any) => {
   const dispatch = useDispatch();
 
   return (
