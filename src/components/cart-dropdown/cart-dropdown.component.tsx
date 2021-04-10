@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useMemo } from "react";
 import CartItem from "../cart-item/cart-item.component";
 import { useSelector, useDispatch } from "react-redux";
 
@@ -8,8 +8,10 @@ import "./cart-dropdown.styles.scss";
 import { State } from "../../redux/store";
 
 const CartDropdown = () => {
-  const items = useSelector((state: State) => state.cart.cartItems);
+  const cartItems = useSelector((state: State) => state.cart.cartItems);
+  const items = useMemo(() => cartItems, [cartItems]);
 
+  console.log("render");
   return (
     <div className="cart-dropdown">
       <div className="cart-items">
