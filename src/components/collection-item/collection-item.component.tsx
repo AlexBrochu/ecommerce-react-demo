@@ -1,4 +1,8 @@
 import React from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { addItem } from "../../redux/cart/cart.action";
+import { State } from "../../redux/store";
+import CustomButton from "../custom-button/custom-button.component";
 
 import "./collection-item.styles.scss";
 
@@ -9,17 +13,22 @@ interface CollectionItemProps {
   imageUrl: string;
 }
 
-const CollectionItem = ({ id, name, price, imageUrl }: CollectionItemProps) => {
+const CollectionItem = (item: any) => {
+  const dispatch = useDispatch();
+
   return (
     <div className="collection-item">
       <div
         className="image"
-        style={{ backgroundImage: `url(${imageUrl})` }}
+        style={{ backgroundImage: `url(${item.imageUrl})` }}
       ></div>
       <div className="collection-footer">
-        <span className="name">{name}</span>
-        <span className="price">{price}</span>
+        <span className="name">{item.name}</span>
+        <span className="price">{item.price}</span>
       </div>
+      <CustomButton inverted onClick={() => dispatch(addItem(item))}>
+        ADD TO CART
+      </CustomButton>
     </div>
   );
 };
