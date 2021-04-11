@@ -3,10 +3,14 @@ import { Component } from "react";
 import "./directory.styles.scss";
 import sections from "../../data/directory.data";
 import MenuItem from "../menu-item/menu-item.component";
+import { SectionType } from "../../types/common.types";
 
 interface DirectoryProps {}
 
-class Directory extends Component<DirectoryProps, { sections: Array<any> }> {
+class Directory extends Component<
+  DirectoryProps,
+  { sections: Array<SectionType> }
+> {
   constructor(props: DirectoryProps) {
     super(props);
     this.state = {

@@ -1,14 +1,12 @@
 import React from "react";
+import { CartItemType } from "../../types/common.types";
 
 import "./cart-item.styles.scss";
-interface ItemProp {
-  quantity: number;
-  name: string;
-  price: number;
-  imageUrl: string;
+interface CartItemProp {
+  item: CartItemType;
 }
 
-const CartItem = ({ item }: any) => {
+const CartItem = ({ item }: CartItemProp) => {
   return (
     <div className="cart-item">
       <img src={item.imageUrl} alt="item" />

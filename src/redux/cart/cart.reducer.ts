@@ -1,12 +1,20 @@
-import {ADD_ITEM, CartActionType, CLEAR_ITEM, REMOVE_ITEM, TOGGLE_CART_HIDDEN} from './cart.types'
+import { AnyAction } from 'redux';
+import { CartItemType } from '../../types/common.types';
+import {ADD_ITEM, CLEAR_ITEM, REMOVE_ITEM, TOGGLE_CART_HIDDEN} from './cart.types'
 import { addItemToCart, removeItemFromCart } from './cart.utils';
 
-const INITIAL_STATE = {
+interface CartState {
+  hidden:boolean
+  cartItems: Array<CartItemType>
+}
+
+
+const INITIAL_STATE: CartState = {
   hidden: true, 
   cartItems: []
 };
 
-const cartReducer = (state = INITIAL_STATE, action:CartActionType) => {
+const cartReducer = (state = INITIAL_STATE,  action: AnyAction) => {
   switch (action.type) {
     case TOGGLE_CART_HIDDEN:
       return {

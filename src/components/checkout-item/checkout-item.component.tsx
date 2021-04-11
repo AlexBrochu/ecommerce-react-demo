@@ -1,10 +1,15 @@
 import React from "react";
 import { useDispatch } from "react-redux";
 import { addItem, clearItem, removeItem } from "../../redux/cart/cart.action";
+import { CartItemType } from "../../types/common.types";
 
 import "./checkout-item.styles.scss";
 
-const CheckoutItem = ({ item }: any) => {
+interface CheckoutProps {
+  item: CartItemType;
+}
+
+const CheckoutItem = ({ item }: CheckoutProps) => {
   const dispatch = useDispatch();
 
   return (

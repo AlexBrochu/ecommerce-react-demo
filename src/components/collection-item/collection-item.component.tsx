@@ -1,19 +1,16 @@
 import React from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 import { addItem } from "../../redux/cart/cart.action";
-import { State } from "../../redux/store";
+import { ItemType } from "../../types/common.types";
 import CustomButton from "../custom-button/custom-button.component";
 
 import "./collection-item.styles.scss";
 
 interface CollectionItemProps {
-  id: number;
-  name: string;
-  price: number;
-  imageUrl: string;
+  item: ItemType;
 }
 
-const CollectionItem = ({ item }: any) => {
+const CollectionItem = ({ item }: CollectionItemProps) => {
   const dispatch = useDispatch();
 
   return (

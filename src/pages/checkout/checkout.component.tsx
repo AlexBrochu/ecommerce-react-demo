@@ -1,17 +1,17 @@
 import React from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import CheckoutItem from "../../components/checkout-item/checkout-item.component";
 import {
   selectCartItems,
   selectCartTotal,
 } from "../../redux/cart/cart.selectors";
 import { State } from "../../redux/store";
+import { CartItemType } from "../../types/common.types";
 
 import "./checkout.styles.scss";
 
 const CheckoutPage = () => {
   const state = useSelector((state: State) => state);
-  const dispatch = useDispatch();
   const total = selectCartTotal(state);
   const cartItems = selectCartItems(state);
 
@@ -34,7 +34,7 @@ const CheckoutPage = () => {
           <span>Remove</span>
         </div>
       </div>
-      {cartItems.map((cartItem: any) => (
+      {cartItems.map((cartItem: CartItemType) => (
         <CheckoutItem item={cartItem}></CheckoutItem>
       ))}
       <div className="total">

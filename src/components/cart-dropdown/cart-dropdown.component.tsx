@@ -8,6 +8,7 @@ import CustomButton from "../custom-button/custom-button.component";
 import "./cart-dropdown.styles.scss";
 import { State } from "../../redux/store";
 import { toggleCartHidden } from "../../redux/cart/cart.action";
+import { CartItemType } from "../../types/common.types";
 
 const CartDropdown = (props: RouteComponentProps) => {
   const cartItems = useSelector((state: State) => state.cart.cartItems);
@@ -19,7 +20,7 @@ const CartDropdown = (props: RouteComponentProps) => {
     <div className="cart-dropdown">
       <div className="cart-items">
         {cartItems.length ? (
-          items.map((cartItem: any) => (
+          items.map((cartItem: CartItemType) => (
             <CartItem key={cartItem.id} item={cartItem}></CartItem>
           ))
         ) : (
