@@ -15,7 +15,6 @@ const CartDropdown = (props: RouteComponentProps) => {
   const items = useMemo(() => cartItems, [cartItems]);
   const dispatch = useDispatch();
 
-  console.log("render");
   return (
     <div className="cart-dropdown">
       <div className="cart-items">
