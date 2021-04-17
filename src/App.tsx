@@ -48,7 +48,7 @@ const App = () => {
   }, [dispatch]);
 
   return (
-    <div>
+    <div className={`${currentUser ? "prestige" : "common"}`}>
       {/* Switch when first match render first component  */}
       <Header />
       <Switch>

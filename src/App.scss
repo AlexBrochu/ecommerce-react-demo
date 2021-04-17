@@ -11,3 +11,11 @@ a {
 * {
   box-sizing: border-box;
 }
+
+.prestige {
+  @import "./styles/prestige.scss";
+}
+
+.common {
+  @import "./styles/common.scss";
+}
