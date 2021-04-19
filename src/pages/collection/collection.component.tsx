@@ -14,17 +14,20 @@ const COLLECTION_ID_MAP: any = {
 };
 
 const CollectionPage = ({ match }: any) => {
-  const state = useSelector((state: State) =>
-    state.shop.collections.find(
-      (collection) =>
-        collection.id === COLLECTION_ID_MAP[match.params.collectionId]
-    )
-  );
-  console.log(state);
+  const collectionState = useSelector((state: State) => {
+    const collectionUrlParam: keyof typeof state.shop.collections =
+      match.params.collectionId;
+    return state.shop.collections[collectionUrlParam];
+  });
+  console.log(collectionState);
   return (
     <div className="collection-page">
-      <h2>COLLECTION PAGE</h2>
-      {/* <CollectionItem></CollectionItem> */}
+      <h2 className="title">{collectionState?.title}</h2>
+      <div className="items">
+        {collectionState?.items.map((item) => {
+          return <CollectionItem key={item.id} item={item}></CollectionItem>;
+        })}
+      </div>
     </div>
   );
 };

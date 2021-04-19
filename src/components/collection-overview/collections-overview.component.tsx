@@ -11,12 +11,14 @@ const CollectionOverview = () => {
 
   return (
     <div className="collections-overview">
-      {collections.map(({ id, ...otherCollectionProps }) => (
-        <CollectionPreview
-          key={id}
-          {...otherCollectionProps}
-        ></CollectionPreview>
-      ))}
+      {(Object.keys(collections) as Array<keyof typeof collections>).map(
+        (value, index) => (
+          <CollectionPreview
+            key={index}
+            {...collections[value]}
+          ></CollectionPreview>
+        )
+      )}
     </div>
   );
 };
