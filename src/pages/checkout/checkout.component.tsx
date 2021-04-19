@@ -45,7 +45,7 @@ const CheckoutPage = () => {
         *Please use the following test credit card for payments*
         <br />
         4242 4242 4242 4242 - Exp: 01/
-        {new Date().getFullYear().toString().substring(2)} - CVV: 123
+        {+new Date().getFullYear().toString().substring(2) + 1} - CVV: 123
       </div>
       <StripeCheckoutButton price={total}></StripeCheckoutButton>
     </div>
