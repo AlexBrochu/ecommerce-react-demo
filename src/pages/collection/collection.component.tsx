@@ -5,14 +5,6 @@ import { State } from "../../redux/store";
 
 import "./collection.styles.scss";
 
-const COLLECTION_ID_MAP: any = {
-  hats: 1,
-  sneakers: 2,
-  jackets: 3,
-  womens: 4,
-  mens: 5,
-};
-
 const CollectionPage = ({ match }: any) => {
   const collectionState = useSelector((state: State) => {
     const collectionUrlParam: keyof typeof state.shop.collections =
