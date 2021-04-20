@@ -1,14 +1,19 @@
 import React, { useMemo } from "react";
-import { Link } from "react-router-dom";
 import { ReactComponent as Logo } from "../../assets/crown.svg";
 import { useSelector } from "react-redux";
 
 import { auth } from "../../firebase/firebase.utils";
 
-import "./header.styles.scss";
 import { State } from "../../redux/store";
 import CartIcon from "../cart-icon/cart-icon.component";
 import CartDropdown from "../cart-dropdown/cart-dropdown.component";
+
+import {
+  HeaderContainer,
+  LogoContainer,
+  OptionLink,
+  OptionsContainer,
+} from "./header.styles";
 
 const Header = () => {
   const user = useSelector((state: State) => state.user);
@@ -18,30 +23,24 @@ const Header = () => {
   const hidden = useMemo(() => cart.hidden, [cart.hidden]);
 
   return (
-    <div className="header">
-      <Link className="logo-container" to="/">
+    <HeaderContainer>
+      <LogoContainer to="/">
         <Logo className="logo"></Logo>
-      </Link>
-      <div className="options">
-        <Link className="option" to="/shop">
-          SHOP
-        </Link>
-        <Link className="option" to="/contact">
-          CONTACT
-        </Link>
+      </LogoContainer>
+      <OptionsContainer>
+        <OptionLink to="/shop">SHOP</OptionLink>
+        <OptionLink to="/contact">CONTACT</OptionLink>
         {currentUser ? (
-          <div className="option" onClick={() => auth.signOut()}>
+          <OptionLink as="div" onClick={() => auth.signOut()}>
             SIGN OUT
-          </div>
+          </OptionLink>
         ) : (
-          <Link className="option" to="/signIn">
-            SIGN IN
-          </Link>
+          <OptionLink to="/signIn">SIGN IN</OptionLink>
         )}
         <CartIcon />
-      </div>
+      </OptionsContainer>
       {hidden ? null : <CartDropdown />}
-    </div>
+    </HeaderContainer>
   );
 };
 

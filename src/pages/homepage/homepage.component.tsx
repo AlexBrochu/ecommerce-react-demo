@@ -1,9 +1,8 @@
 import React from "react";
 
-import "./homepage.styles.scss";
-
 import Directory from "../../components/directory/directory.component";
 import { RouterProps } from "react-router";
+import { HomePageContainer } from "./homepage.styles";
 
 //Props extends RouterProps and has a test property that is optional
 interface HomePageProps extends RouterProps {
@@ -12,9 +11,9 @@ interface HomePageProps extends RouterProps {
 
 const HomePage = (props: HomePageProps) => {
   return (
-    <div className="homepage">
+    <HomePageContainer>
       <Directory></Directory>
-    </div>
+    </HomePageContainer>
   );
 };
 
