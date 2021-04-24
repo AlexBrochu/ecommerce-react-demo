@@ -12,12 +12,14 @@ const CollectionOverview = () => {
   return (
     <div className="collections-overview">
       {(Object.keys(collections) as Array<keyof typeof collections>).map(
-        (value, index) => (
-          <CollectionPreview
-            key={index}
-            {...collections[value]}
-          ></CollectionPreview>
-        )
+        (value, index) => {
+          return (
+            <CollectionPreview
+              key={index}
+              {...collections[value]}
+            ></CollectionPreview>
+          );
+        }
       )}
     </div>
   );
