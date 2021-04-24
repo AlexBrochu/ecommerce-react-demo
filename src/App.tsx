@@ -8,7 +8,11 @@ import ShopPage from "./pages/shop/shoppage.component";
 import Header from "./components/header/header.component";
 import SignInAndSignUpPage from "./pages/sign-in-and-sign-up/sign-in-and-sign-up.component";
 
-import { auth, createUserProfileDocument } from "./firebase/firebase.utils";
+import {
+  // addCollectionAndDocuments,
+  auth,
+  createUserProfileDocument,
+} from "./firebase/firebase.utils";
 import { setCurrentUser } from "./redux/user/user.actions";
 import { State } from "./redux/store";
 import CheckoutPage from "./pages/checkout/checkout.component";
@@ -16,6 +20,7 @@ import CheckoutPage from "./pages/checkout/checkout.component";
 const App = () => {
   const dispatch = useDispatch();
   const { currentUser } = useSelector((state: State) => state.user);
+  // const { collections } = useSelector((state: State) => state.shop);
 
   useEffect(() => {
     let unsubscribeFromAuth = auth.onAuthStateChanged(async (userAuth) => {
@@ -46,6 +51,18 @@ const App = () => {
       unsubscribeFromAuth();
     };
   }, [dispatch]);
+
+  // useEffect(() => {
+  //   addCollectionAndDocuments(
+  //     "collections",
+  //     (Object.keys(collections) as Array<keyof typeof collections>).map(
+  //       (key) => {
+  //         const collection = collections[key];
+  //         return { title: collection.title, items: collection.items };
+  //       }
+  //     )
+  //   );
+  // }, [collections]);
 
   return (
     <div>
