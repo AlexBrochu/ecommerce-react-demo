@@ -1,32 +1,27 @@
-import React, { useEffect, useRef, useState } from "react";
-import { useDispatch } from "react-redux";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Route, RouteComponentProps } from "react-router-dom";
 import CollectionOverview from "../../components/collection-overview/collections-overview.component";
-import {
-  convertCollectionsSnapshotToMap,
-  firestore,
-} from "../../firebase/firebase.utils";
-import { updateCollections } from "../../redux/shop/shop.actions";
 import CollectionPage from "../collection/collection.component";
 import WithSpinner from "../../components/with-spinner/with-spinner.component";
+import { fetchCollectionsStartAsync } from "../../redux/shop/shop.actions";
+import { State } from "../../redux/store";
 
 const CollectionOverviewWithSpinner = WithSpinner(CollectionOverview);
 const CollectionPageWithSpinner = WithSpinner(CollectionPage);
 
 const ShopPage = ({ match }: RouteComponentProps) => {
-  const [isLoading, setIsLoading] = useState(true);
-  const unsubscribeFromSnapshot = useRef<any>();
+  const isCollectionsLoaded = useSelector(
+    // !! convert variable to boolean
+    // Example
+    // !!null === false
+    // !!{} === true
+    (state: State) => !!state.shop.collections
+  );
   const dispatch = useDispatch();
 
   useEffect(() => {
-    const collectionRef = firestore.collection("collections");
-    unsubscribeFromSnapshot.current = collectionRef.onSnapshot(
-      async (snapShot) => {
-        const collectionsMap = await convertCollectionsSnapshotToMap(snapShot);
-        dispatch(updateCollections(collectionsMap));
-        setIsLoading(false);
-      }
-    );
+    dispatch(fetchCollectionsStartAsync());
   }, [dispatch]);
 
   return (
@@ -34,11 +29,15 @@ const ShopPage = ({ match }: RouteComponentProps) => {
       <Route
         exact
         path={`${match.path}`}
-        render={() => <CollectionOverviewWithSpinner isLoading={isLoading} />}
+        render={() => (
+          <CollectionOverviewWithSpinner isLoading={!isCollectionsLoaded} />
+        )}
       />
       <Route
         path={`${match.path}/:collectionId`}
-        render={() => <CollectionPageWithSpinner isLoading={isLoading} />}
+        render={() => (
+          <CollectionPageWithSpinner isLoading={!isCollectionsLoaded} />
+        )}
       />
     </div>
   );

@@ -47,6 +47,7 @@ const App = () => {
 
     // this.setState({ currentUser: userAuth });
     // clean up function
+    // when we unmount the component unsubscribe to the stream of events
     return function cleanup() {
       unsubscribeFromAuth();
     };

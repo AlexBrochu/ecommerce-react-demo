@@ -46,3 +46,12 @@ You can learn more in the [Create React App documentation](https://facebook.gith
 To learn React, check out the [React documentation](https://reactjs.org/).
 
 ## This Project is built with typescript
+
+## How to deploy project on Heroku
+
+```
+git push heroku master
+```
+
+To see the app deployed
+https://crwn-live-demo-link.herokuapp.com/
