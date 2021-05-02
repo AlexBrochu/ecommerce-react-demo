@@ -4,8 +4,8 @@ import { Route, RouteComponentProps } from "react-router-dom";
 import CollectionOverview from "../../components/collection-overview/collections-overview.component";
 import CollectionPage from "../collection/collection.component";
 import WithSpinner from "../../components/with-spinner/with-spinner.component";
-import { fetchCollectionsStartAsync } from "../../redux/shop/shop.actions";
 import { State } from "../../redux/store";
+import { fetchCollectionsStart } from "../../redux/shop/shop.actions";
 
 const CollectionOverviewWithSpinner = WithSpinner(CollectionOverview);
 const CollectionPageWithSpinner = WithSpinner(CollectionPage);
@@ -21,7 +21,7 @@ const ShopPage = ({ match }: RouteComponentProps) => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(fetchCollectionsStartAsync());
+    dispatch(fetchCollectionsStart());
   }, [dispatch]);
 
   return (
