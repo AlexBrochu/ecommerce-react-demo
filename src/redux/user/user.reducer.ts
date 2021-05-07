@@ -1,16 +1,25 @@
 import { AnyAction } from 'redux'
-import {SET_CURRENT_USER} from './user.types'
+import {EMAIL_SIGN_IN_FAILURE, EMAIL_SIGN_IN_SUCCESS, GOOGLE_SIGN_IN_FAILURE, GOOGLE_SIGN_IN_SUCCESS, SET_CURRENT_USER} from './user.types'
 
 const INITIAL_STATE:any = {
   currentUser: null,
+  error: null
 }
 
 const userReducer = (state = INITIAL_STATE, action: AnyAction) =>{
   switch(action.type)  {
-    case SET_CURRENT_USER:
+    case GOOGLE_SIGN_IN_SUCCESS:
+    case EMAIL_SIGN_IN_SUCCESS:
       return {
         ...state, 
-        currentUser: action.payload
+        currentUser: action.payload,
+        error: null
+      }
+    case GOOGLE_SIGN_IN_FAILURE:
+    case EMAIL_SIGN_IN_FAILURE:
+      return {
+        ...state, 
+        error: action.payload
       }
     default:
       return state

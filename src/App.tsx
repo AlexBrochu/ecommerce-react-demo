@@ -23,33 +23,33 @@ const App = () => {
   // const { collections } = useSelector((state: State) => state.shop);
 
   useEffect(() => {
-    let unsubscribeFromAuth = auth.onAuthStateChanged(async (userAuth) => {
-      if (userAuth) {
-        const userRef = await createUserProfileDocument(userAuth);
+    // let unsubscribeFromAuth = auth.onAuthStateChanged(async (userAuth) => {
+    //   if (userAuth) {
+    //     const userRef = await createUserProfileDocument(userAuth);
 
-        userRef?.onSnapshot(
-          (snapShot) => {
-            dispatch(
-              setCurrentUser({
-                currentUser: {
-                  id: snapShot.id,
-                  ...snapShot.data(),
-                },
-              })
-            );
-          },
-          //setState is asynchronus
-          () => {}
-        );
-      }
-      dispatch(setCurrentUser(userAuth));
-    });
+    //     userRef?.onSnapshot(
+    //       (snapShot) => {
+    //         dispatch(
+    //           setCurrentUser({
+    //             currentUser: {
+    //               id: snapShot.id,
+    //               ...snapShot.data(),
+    //             },
+    //           })
+    //         );
+    //       },
+    //       //setState is asynchronus
+    //       () => {}
+    //     );
+    //   }
+    //   dispatch(setCurrentUser(userAuth));
+    // });
 
     // this.setState({ currentUser: userAuth });
     // clean up function
     // when we unmount the component unsubscribe to the stream of events
     return function cleanup() {
-      unsubscribeFromAuth();
+      // unsubscribeFromAuth();
     };
   }, [dispatch]);
 
