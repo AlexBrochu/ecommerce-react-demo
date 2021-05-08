@@ -1,8 +1,6 @@
 import React, { useMemo } from "react";
 import { ReactComponent as Logo } from "../../assets/crown.svg";
-import { useSelector } from "react-redux";
-
-import { auth } from "../../firebase/firebase.utils";
+import { useSelector, useDispatch } from "react-redux";
 
 import { State } from "../../redux/store";
 import CartIcon from "../cart-icon/cart-icon.component";
@@ -14,13 +12,19 @@ import {
   OptionLink,
   OptionsContainer,
 } from "./header.styles";
+import { signOutStart } from "../../redux/user/user.actions";
 
 const Header = () => {
+  const dispatch = useDispatch();
   const user = useSelector((state: State) => state.user);
   const cart = useSelector((state: State) => state.cart);
 
   const currentUser = useMemo(() => user.currentUser, [user.currentUser]);
   const hidden = useMemo(() => cart.hidden, [cart.hidden]);
+
+  const signOut = () => {
+    dispatch(signOutStart());
+  };
 
   return (
     <HeaderContainer>
@@ -31,7 +35,7 @@ const Header = () => {
         <OptionLink to="/shop">SHOP</OptionLink>
         <OptionLink to="/contact">CONTACT</OptionLink>
         {currentUser ? (
-          <OptionLink as="div" onClick={() => auth.signOut()}>
+          <OptionLink as="div" onClick={signOut}>
             SIGN OUT
           </OptionLink>
         ) : (

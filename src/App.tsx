@@ -8,62 +8,17 @@ import ShopPage from "./pages/shop/shoppage.component";
 import Header from "./components/header/header.component";
 import SignInAndSignUpPage from "./pages/sign-in-and-sign-up/sign-in-and-sign-up.component";
 
-import {
-  // addCollectionAndDocuments,
-  auth,
-  createUserProfileDocument,
-} from "./firebase/firebase.utils";
-import { setCurrentUser } from "./redux/user/user.actions";
+import { checkUserSession } from "./redux/user/user.actions";
 import { State } from "./redux/store";
 import CheckoutPage from "./pages/checkout/checkout.component";
 
 const App = () => {
   const dispatch = useDispatch();
   const { currentUser } = useSelector((state: State) => state.user);
-  // const { collections } = useSelector((state: State) => state.shop);
 
   useEffect(() => {
-    // let unsubscribeFromAuth = auth.onAuthStateChanged(async (userAuth) => {
-    //   if (userAuth) {
-    //     const userRef = await createUserProfileDocument(userAuth);
-
-    //     userRef?.onSnapshot(
-    //       (snapShot) => {
-    //         dispatch(
-    //           setCurrentUser({
-    //             currentUser: {
-    //               id: snapShot.id,
-    //               ...snapShot.data(),
-    //             },
-    //           })
-    //         );
-    //       },
-    //       //setState is asynchronus
-    //       () => {}
-    //     );
-    //   }
-    //   dispatch(setCurrentUser(userAuth));
-    // });
-
-    // this.setState({ currentUser: userAuth });
-    // clean up function
-    // when we unmount the component unsubscribe to the stream of events
-    return function cleanup() {
-      // unsubscribeFromAuth();
-    };
+    dispatch(checkUserSession());
   }, [dispatch]);
-
-  // useEffect(() => {
-  //   addCollectionAndDocuments(
-  //     "collections",
-  //     (Object.keys(collections) as Array<keyof typeof collections>).map(
-  //       (key) => {
-  //         const collection = collections[key];
-  //         return { title: collection.title, items: collection.items };
-  //       }
-  //     )
-  //   );
-  // }, [collections]);
 
   return (
     <div>
