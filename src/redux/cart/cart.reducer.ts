@@ -1,6 +1,6 @@
 import { AnyAction } from 'redux';
 import { CartItemType } from '../../types/common.types';
-import {ADD_ITEM, CLEAR_ITEM, REMOVE_ITEM, TOGGLE_CART_HIDDEN} from './cart.types'
+import {ADD_ITEM, CLEAR_CART, CLEAR_ITEM, REMOVE_ITEM, TOGGLE_CART_HIDDEN} from './cart.types'
 import { addItemToCart, removeItemFromCart } from './cart.utils';
 
 interface CartState {
@@ -35,6 +35,11 @@ const cartReducer = (state = INITIAL_STATE,  action: AnyAction) => {
       return {
         ...state, 
         cartItems: state.cartItems.filter((cartItem:any) => cartItem.id !== action.payload.id)
+      }
+    case CLEAR_CART:
+      return {
+        ...state,
+        cartItems: []
       }
     default:
       return state
