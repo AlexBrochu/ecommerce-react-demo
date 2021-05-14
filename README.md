@@ -55,3 +55,11 @@ git push heroku master
 
 To see the app deployed
 https://crwn-live-demo-link.herokuapp.com/
+
+## Heroku
+
+To add secret to heroku
+
+```
+heroku config:set STRIPE_SECRET_KEY=value_of_secret_key
+```
