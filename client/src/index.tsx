@@ -6,17 +6,52 @@ import reportWebVitals from "./reportWebVitals";
 import { BrowserRouter } from "react-router-dom";
 import { Provider } from "react-redux";
 import { PersistGate } from "redux-persist/integration/react";
+import {
+  ApolloClient,
+  createHttpLink,
+  InMemoryCache,
+  ApolloProvider, gql
+} from "@apollo/client";
 
 import { store, persistor } from "./redux/store";
 
+const httpLink = createHttpLink({
+  uri: "https://crwn-clothing.com",
+});
+
+const cache = new InMemoryCache();
+
+const client = new ApolloClient({
+  link: httpLink,
+  cache,
+});
+
+// client
+//   .query({
+//     query: gql`
+//     query TestQuery {
+//       collections {
+//         id
+//         title
+//         items {
+//           name
+//         }
+//       }
+//     }
+// `
+//   })
+//   .then((res) => console.log(res));
+
 ReactDOM.render(
-  <Provider store={store}>
-    <BrowserRouter>
-      <PersistGate persistor={persistor}>
-        <App />
-      </PersistGate>
-    </BrowserRouter>
-  </Provider>,
+  <ApolloProvider client={client}>
+    <Provider store={store}>
+      <BrowserRouter>
+        <PersistGate persistor={persistor}>
+          <App />
+        </PersistGate>
+      </BrowserRouter>
+    </Provider>
+  </ApolloProvider>,
   document.getElementById("root")
 );
 
