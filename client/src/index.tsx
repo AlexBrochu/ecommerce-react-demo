@@ -10,7 +10,8 @@ import {
   ApolloClient,
   createHttpLink,
   InMemoryCache,
-  ApolloProvider, gql
+  ApolloProvider,
+  gql,
 } from "@apollo/client";
 
 import { store, persistor } from "./redux/store";
@@ -26,21 +27,26 @@ const client = new ApolloClient({
   cache,
 });
 
-// client
-//   .query({
-//     query: gql`
-//     query TestQuery {
-//       collections {
-//         id
-//         title
-//         items {
-//           name
-//         }
-//       }
-//     }
-// `
-//   })
-//   .then((res) => console.log(res));
+const GET_COLLECTIONS = gql`
+  {
+    collections {
+      id
+      title
+      items {
+        id
+        name
+        price
+        imageUrl
+      }
+    }
+  }
+`;
+
+client
+  .query({
+    query: GET_COLLECTIONS,
+  })
+  .then((res) => console.log(res));
 
 ReactDOM.render(
   <ApolloProvider client={client}>
