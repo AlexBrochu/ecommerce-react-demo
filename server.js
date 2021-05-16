@@ -1,6 +1,7 @@
 const express = require("express");
 const cors = require("cors");
 const path = require("path");
+const serverQL = require("./server/graphql/serverQL");
 
 if (process.env.NODE_ENV !== "production") require("dotenv").config();
 
@@ -11,6 +12,7 @@ const port = process.env.PORT || 5000;
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+serverQL.applyMiddleware({ app });
 
 app.use(cors());
 
@@ -24,6 +26,10 @@ if (process.env.NODE_ENV === "production") {
 app.listen(port, (error) => {
   if (error) throw error;
   console.log("Server running on port " + port);
+});
+
+app.get("/hello", (req, res) => {
+  res.status(200).send("Hello WORLD");
 });
 
 // Call stripe apis
